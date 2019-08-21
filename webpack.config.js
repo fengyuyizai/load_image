@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const devMode = false
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     entry: [
         "./app/main.js"
@@ -14,10 +15,6 @@ module.exports = {
         rules: [
             {
                 test: /\.(le|c)ss$/,
-                // include: [
-                //     path.resolve(__dirname, 'app/css')
-                // ],
-                // exclude: '/node_modules/',
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader
@@ -41,6 +38,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new CopyPlugin([
+            { from: 'static', to: 'static' },
+          ]),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "index.html"),
             filename: "index.html",
