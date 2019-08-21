@@ -1,5 +1,26 @@
 #control{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
     li {
         border: 1px solid;
+        display: inline-block;
+        width: 500px;
+        position: relative;
+        .image-box{
+            display: inline-block;
+            background-color: dimgrey;
+            width: 400px;
+            height: 404px;
+        }
+        .promp{
+            position: absolute;
+            left: 410px;
+            top: 30px;
+            font-size: 18px;
+        }
+        .button{
+            float: right;
+        }
     }
 }
