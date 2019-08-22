@@ -2,22 +2,30 @@ import './assets/css/index.css'
 import Event from './util/event.js'
 
 const control = document.getElementById('control');
+const imgList = [
+    'logo1.png',
+    'logo2.jpg',
+    'logo3.jpg'
+]
 
 Event.addEvent(control, 'click', (e) => {
+    // console.log(e)
     Event.stopEvent(e)
     const tagName = e.target.tagName
     const index = e.target.dataset.index
+    if (e.path[1].tagName !== 'LI') {
+        return
+    }
     let totalImgTag = e.path[1].childNodes[0]
     let prompTag = e.path[1].childNodes[1].getElementsByClassName('value')[0]
     if (tagName === 'BUTTON') {
         let newTag = addImgTag(totalImgTag, index)
         listenImgLoad(newTag).then((time) => {
             modifyPrompTime(prompTag, time)
+            prompTag = null
         })
     }
     totalImgTag = null
-    prompTag = null
-    console.log(e)
 })
 
 /**
@@ -26,7 +34,7 @@ Event.addEvent(control, 'click', (e) => {
  * @param {Number} time 
  */
 function modifyPrompTime (tag, time) {
-    tag.innerText = time
+    tag.innerText = time + ' ms'
 }
 
 /**
@@ -55,7 +63,7 @@ function addImgTag (totalEle, index) {
         <img 
             class="image"
             id="image_${index}"
-            src="static/images/logo${index}.png"
+            src="static/images/${imgList[index - 1]}"
             alt="vue的logo${index}" />`
     return totalEle.children[0]
 }
